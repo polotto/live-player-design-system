@@ -5,8 +5,12 @@ type $$ComponentProps = {
     type?: 'button' | 'submit' | 'reset';
     disabled?: boolean;
     title?: string;
+    /** Renders an <a> instead of a <button> - for a CTA that navigates
+     * (the site's "Abrir no navegador", say) rather than acting in
+     * place. Same classes/look either way. */
+    href?: string;
     class?: string;
-    ref?: HTMLButtonElement;
+    ref?: HTMLButtonElement | HTMLAnchorElement;
     children?: Snippet;
     [key: string]: unknown;
 };

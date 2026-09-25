@@ -7,6 +7,7 @@
 		type = 'button',
 		disabled = false,
 		title = undefined,
+		href = undefined,
 		class: className = '',
 		ref = $bindable(),
 		children,
@@ -17,8 +18,12 @@
 		type?: 'button' | 'submit' | 'reset';
 		disabled?: boolean;
 		title?: string;
+		/** Renders an <a> instead of a <button> - for a CTA that navigates
+		 * (the site's "Abrir no navegador", say) rather than acting in
+		 * place. Same classes/look either way. */
+		href?: string;
 		class?: string;
-		ref?: HTMLButtonElement;
+		ref?: HTMLButtonElement | HTMLAnchorElement;
 		children?: Snippet;
 		[key: string]: unknown;
 	} = $props();
@@ -31,8 +36,8 @@
      out above and re-composing it here is what avoids that.
 
      `bind:this` on a Svelte COMPONENT binds the component instance, not
-     a DOM node - a caller that needs the real <button> (to measure it
-     for a popover's position, say) can't get it that way. `ref` is a
+     a DOM node - a caller that needs the real <button>/<a> (to measure
+     it for a popover's position, say) can't get it that way. `ref` is a
      bindable prop instead: bind:ref={..} on THIS component, bound
      internally to the native element via bind:this.
 
@@ -43,10 +48,22 @@
      {undefined} when ref has a fallback value." Svelte 5 won't bind an
      undefined variable to a bindable prop that declares its own
      fallback. No fallback here matches how a plain bind:this on a
-     native element already behaves - undefined until mounted. -->
-<button {type} {disabled} {title} {...rest} bind:this={ref} class="lp-btn lp-btn-{variant} {className}" class:lp-btn-icon={icon}>
-	{@render children?.()}
-</button>
+     native element already behaves - undefined until mounted.
+
+     A separate {#if} branch rather than <svelte:element this={...}> -
+     `type`/`disabled` aren't meaningful on an <a>, and the two element
+     types need different ref/event-handler DOM types; keeping them as
+     two small, explicit tags reads clearer than one dynamic element
+     juggling attributes that only apply to one of its two shapes. -->
+{#if href}
+	<a {href} {title} {...rest} bind:this={ref} class="lp-btn lp-btn-{variant} {className}" class:lp-btn-icon={icon}>
+		{@render children?.()}
+	</a>
+{:else}
+	<button {type} {disabled} {title} {...rest} bind:this={ref} class="lp-btn lp-btn-{variant} {className}" class:lp-btn-icon={icon}>
+		{@render children?.()}
+	</button>
+{/if}
 
 <style>
 	.lp-btn {
@@ -54,6 +71,7 @@
 		align-items: center;
 		justify-content: center;
 		gap: 8px;
+		text-decoration: none;
 		border-radius: var(--radius-sm, 6px);
 		border: 1px solid var(--border, #2c383f);
 		background: var(--panel-2, #1b252a);
