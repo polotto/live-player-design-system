@@ -1,5 +1,13 @@
 node_modules
 .svelte-kit
-dist
 build
 .DS_Store
+
+# dist/ IS committed, deliberately - this package is installed by both
+# consumers as a plain git dependency (github:polotto/live-player-design-system),
+# not published to a registry, and npm doesn't run a build step for git
+# dependencies unless a fragile "prepare" script chain succeeds in the
+# consumer's own environment. Committing the svelte-package output means
+# `npm install` just works everywhere, no nested toolchain required.
+# Release process: bump version in package.json, `npm run build`, commit
+# src/ AND dist/ together, push.

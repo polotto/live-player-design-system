@@ -1,0 +1,71 @@
+/* Live Player design system - shared tokens.
+   Direção B ("Console"): cool electric cyan, precision-instrument
+   register - echoes the waveform/VU-meter glow the app already shows on
+   screen, deliberately distinct from the amber/green/red already
+   reserved for playback status (--paused/--ok/--danger below).
+
+   Direção A ("Downstage", a warm magenta-violet direction) was explored
+   and discarded - too close to QLab's own purple. Not shipped here; if
+   you need the history, see this repo's DESIGN.md.
+
+   Variable names match what live-player (the desktop/browser app) and
+   live-player-website already use in their own stylesheets - copy this
+   file's :root block in as-is, no renaming needed, no wrapper class
+   required. */
+
+:root {
+  /* Ground + surfaces */
+  --bg: #0e1417;
+  --panel: #141c20;
+  --panel-2: #1b252a;
+  --panel-3: #223035;
+  --border: #2c383f;
+  --border-strong: #3c4c53;
+
+  /* Text */
+  --text: #eaf2f4;
+  --text-dim: #93a3aa;
+  --text-faint: #647278;
+
+  /* Brand - fixed, never re-themed per-project. See DESIGN.md's
+     "Cor de projeto vs. cor de marca" for why this is a hard rule. */
+  --accent: #29b6d8;
+  --accent-strong: #5fd4ef;
+  --accent-600: #1c93b0;
+  --accent-dim: #0e3540;
+
+  /* Status - reserved, never reused for brand or theme */
+  --ok: #4cbe8c;
+  --paused: #dca83e;
+  --danger: #e15c52;
+
+  /* Type */
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SF Mono', Consolas, monospace;
+
+  /* Scale */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  --shadow: 0 24px 64px rgba(3, 8, 10, 0.55);
+}
+
+/* Google Fonts - one <link> covers all three families/weights actually
+   used. Put this in <head>, before any stylesheet that references
+   --font-display/--font-body/--font-mono:
+
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+*/
