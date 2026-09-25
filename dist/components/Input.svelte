@@ -7,6 +7,7 @@
 		error = false,
 		id = undefined,
 		class: className = '',
+		ref = $bindable(null),
 		...rest
 	}: {
 		value?: string;
@@ -16,14 +17,17 @@
 		error?: boolean;
 		id?: string;
 		class?: string;
+		ref?: HTMLInputElement | null;
 		[key: string]: unknown;
 	} = $props();
 </script>
 
 <!-- class before rest, then re-applied after: same reasoning as
      Button.svelte - a spread's `class` would otherwise silently replace
-     lp-input instead of adding to it. -->
-<input {id} {type} {placeholder} {disabled} bind:value {...rest} class="lp-input {className}" class:lp-input-error={error} />
+     lp-input instead of adding to it. `ref` is bindable for the same
+     reason Button's is - bind:this on this component would bind the
+     component instance, not the native <input>. -->
+<input {id} {type} {placeholder} {disabled} bind:value {...rest} bind:this={ref} class="lp-input {className}" class:lp-input-error={error} />
 
 <style>
 	.lp-input {

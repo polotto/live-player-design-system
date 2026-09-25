@@ -6,8 +6,9 @@ type $$ComponentProps = {
     error?: boolean;
     id?: string;
     class?: string;
+    ref?: HTMLInputElement | null;
     [key: string]: unknown;
 };
-declare const Input: import("svelte").Component<$$ComponentProps, {}, "value">;
+declare const Input: import("svelte").Component<$$ComponentProps, {}, "ref" | "value">;
 type Input = ReturnType<typeof Input>;
 export default Input;

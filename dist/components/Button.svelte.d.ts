@@ -6,9 +6,10 @@ type $$ComponentProps = {
     disabled?: boolean;
     title?: string;
     class?: string;
+    ref?: HTMLButtonElement | null;
     children?: Snippet;
     [key: string]: unknown;
 };
-declare const Button: import("svelte").Component<$$ComponentProps, {}, "">;
+declare const Button: import("svelte").Component<$$ComponentProps, {}, "ref">;
 type Button = ReturnType<typeof Button>;
 export default Button;

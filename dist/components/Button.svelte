@@ -8,6 +8,7 @@
 		disabled = false,
 		title = undefined,
 		class: className = '',
+		ref = $bindable(null),
 		children,
 		...rest
 	}: {
@@ -17,6 +18,7 @@
 		disabled?: boolean;
 		title?: string;
 		class?: string;
+		ref?: HTMLButtonElement | null;
 		children?: Snippet;
 		[key: string]: unknown;
 	} = $props();
@@ -26,8 +28,14 @@
      attribute overwrites it entirely on a key collision, which would
      silently drop lp-btn/lp-btn-{variant} the moment a caller passes its
      own `class` (e.g. a layout class) through rest. Destructuring class
-     out above and re-composing it here is what avoids that. -->
-<button {type} {disabled} {title} {...rest} class="lp-btn lp-btn-{variant} {className}" class:lp-btn-icon={icon}>
+     out above and re-composing it here is what avoids that.
+
+     `bind:this` on a Svelte COMPONENT binds the component instance, not
+     a DOM node - a caller that needs the real <button> (to measure it
+     for a popover's position, say) can't get it that way. `ref` is a
+     bindable prop instead: bind:ref={..} on THIS component, bound
+     internally to the native element via bind:this. -->
+<button {type} {disabled} {title} {...rest} bind:this={ref} class="lp-btn lp-btn-{variant} {className}" class:lp-btn-icon={icon}>
 	{@render children?.()}
 </button>
 
