@@ -3,14 +3,16 @@
 
 	let {
 		padding = 'md',
+		class: className = '',
 		children
 	}: {
 		padding?: 'sm' | 'md' | 'lg';
+		class?: string;
 		children?: Snippet;
 	} = $props();
 </script>
 
-<div class="lp-card lp-card-{padding}">
+<div class="lp-card lp-card-{padding} {className}">
 	{@render children?.()}
 </div>
 

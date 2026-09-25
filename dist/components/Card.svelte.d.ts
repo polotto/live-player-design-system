@@ -1,6 +1,7 @@
 import type { Snippet } from 'svelte';
 type $$ComponentProps = {
     padding?: 'sm' | 'md' | 'lg';
+    class?: string;
     children?: Snippet;
 };
 declare const Card: import("svelte").Component<$$ComponentProps, {}, "">;
