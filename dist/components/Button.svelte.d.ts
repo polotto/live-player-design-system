@@ -6,7 +6,7 @@ type $$ComponentProps = {
     disabled?: boolean;
     title?: string;
     class?: string;
-    ref?: HTMLButtonElement | null;
+    ref?: HTMLButtonElement;
     children?: Snippet;
     [key: string]: unknown;
 };

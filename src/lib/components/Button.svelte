@@ -8,7 +8,7 @@
 		disabled = false,
 		title = undefined,
 		class: className = '',
-		ref = $bindable(null),
+		ref = $bindable(),
 		children,
 		...rest
 	}: {
@@ -18,7 +18,7 @@
 		disabled?: boolean;
 		title?: string;
 		class?: string;
-		ref?: HTMLButtonElement | null;
+		ref?: HTMLButtonElement;
 		children?: Snippet;
 		[key: string]: unknown;
 	} = $props();
@@ -34,7 +34,16 @@
      a DOM node - a caller that needs the real <button> (to measure it
      for a popover's position, say) can't get it that way. `ref` is a
      bindable prop instead: bind:ref={..} on THIS component, bound
-     internally to the native element via bind:this. -->
+     internally to the native element via bind:this.
+
+     `$bindable()` with NO fallback, deliberately - `$bindable(null)`
+     (a first attempt) threw a real runtime error the moment a caller's
+     own state started as `undefined` (the common `let x = $state()`
+     pattern, e.g. Header.svelte's `menuBtnEl`): "Cannot do bind:ref=
+     {undefined} when ref has a fallback value." Svelte 5 won't bind an
+     undefined variable to a bindable prop that declares its own
+     fallback. No fallback here matches how a plain bind:this on a
+     native element already behaves - undefined until mounted. -->
 <button {type} {disabled} {title} {...rest} bind:this={ref} class="lp-btn lp-btn-{variant} {className}" class:lp-btn-icon={icon}>
 	{@render children?.()}
 </button>

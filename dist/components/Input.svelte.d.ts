@@ -6,7 +6,7 @@ type $$ComponentProps = {
     error?: boolean;
     id?: string;
     class?: string;
-    ref?: HTMLInputElement | null;
+    ref?: HTMLInputElement;
     [key: string]: unknown;
 };
 declare const Input: import("svelte").Component<$$ComponentProps, {}, "ref" | "value">;
