@@ -24,6 +24,7 @@
     "assets"
   ],
   "scripts": {
+    "prepare": "svelte-kit sync || true",
     "dev": "vite dev",
     "build": "vite build && svelte-package",
     "preview": "vite preview",
