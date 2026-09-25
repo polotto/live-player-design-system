@@ -4,15 +4,20 @@
 	let {
 		tone = 'neutral',
 		dot = false,
+		pill = false,
 		children
 	}: {
 		tone?: 'neutral' | 'ok' | 'paused' | 'danger' | 'accent';
 		dot?: boolean;
+		/** Chip look (padding + tinted rounded background) instead of plain
+		 * inline text - for a status pill sitting inside a busier row, where
+		 * bare colored text alone doesn't stand out enough. */
+		pill?: boolean;
 		children?: Snippet;
 	} = $props();
 </script>
 
-<span class="lp-badge lp-badge-{tone}">
+<span class="lp-badge lp-badge-{tone}" class:lp-badge-pill={pill}>
 	{#if dot}<span class="lp-badge-dot" aria-hidden="true"></span>{/if}
 	{@render children?.()}
 </span>
@@ -45,5 +50,19 @@
 	}
 	.lp-badge-accent {
 		color: var(--accent, #29b6d8);
+	}
+
+	.lp-badge-pill {
+		font-size: 11px;
+		padding: 2px 7px;
+		border-radius: 20px;
+		background: color-mix(in srgb, currentColor 14%, transparent);
+	}
+	/* Neutral tone's pill uses --panel-2 as a flat background rather than a
+	   currentColor tint (var(--text-dim) tinted at 14% reads as barely-there
+	   on a dark ground) - every other tone tints fine against the dark
+	   surfaces this system assumes. */
+	.lp-badge-neutral.lp-badge-pill {
+		background: var(--panel-2, #1b252a);
 	}
 </style>
